@@ -1,0 +1,31 @@
+{
+  "name": "the-privy",
+  "version": "1.0.0",
+  "description": "a simple \"members-only\" type web app to demonstrate expressjs, postgresql and passportjs authentication",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --watch server/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/furkanssarri/the-privy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/furkanssarri/the-privy/issues"
+  },
+  "homepage": "https://github.com/furkanssarri/the-privy#readme",
+  "dependencies": {
+    "connect-pg-simple": "^10.0.0",
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "pg": "^8.16.3"
+  }
+}
