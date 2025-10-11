@@ -3,7 +3,10 @@ const { Router } = require("express");
 const indexRouter = Router();
 
 indexRouter.get("/", (_req, res) => {
-  res.send("<h1>Welcome to the homepage</h1>");
+  res.render("pages/index", {
+    title: "Home",
+    posts: {},
+  });
 });
 
 module.exports = indexRouter;
