@@ -33,3 +33,17 @@ module.exports.createNewUser = async ({ username, hash, salt, isAdmin }) => {
     console.error(err);
   }
 };
+
+module.exports.getAllPostsWithAuthors = async () => {
+  try {
+    const { rows } = await pool.query(`
+      SELECT posts.*, users.username
+      FROM posts
+      JOIN users ON posts.author_id = users.id;
+    `);
+    return rows;
+  } catch (err) {
+    console.error("Error fetching posts", err);
+    throw err;
+  }
+};
