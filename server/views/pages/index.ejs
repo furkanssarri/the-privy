@@ -26,26 +26,24 @@
 
             <hr class="mb-4">
 
-            <% if (Array.isArray(posts) && posts.length> 0) { %>
-              <% posts.forEach(post=> { %>
-                <div class="card mb-3 border-0 shadow-sm">
+          <% if (Array.isArray(posts) && posts.length > 0) { %>
+            <% posts.forEach(post => { %>
+              <a href="/<%= post.id %>" class="text-decoration-none ">
+                <div class="card mb-3 border-0 shadow hover-scale bg-body-secondary">
                   <div class="card-body">
-                    <% if (typeof user !=="undefined" && user) { %>
-                      <h6 class="fw-semibold text-primary mb-1">@<%= post.author %>
-                      </h6>
-                      <% } else { %>
-                        <h6 class="fw-semibold text-secondary mb-1">Anonymous</h6>
-                        <% } %>
-                          <p class="mb-0">
-                            <%= post.content %>
-                          </p>
+                    <% if (typeof user !== "undefined" && user) { %>
+                      <h6 class="fw-semibold text-primary mb-1">@<%= post.username %></h6>
+                    <% } else { %>
+                      <h6 class="fw-semibold text-secondary mb-1">Anonymous</h6>
+                    <% } %>
+                    <p class="mb-0"><%= post.content %></p>
                   </div>
                 </div>
-                <% }) %>
-                  <% } else { %>
-                    <p class="text-center text-secondary">No posts yet.</p>
-                    <% } %>
-
+              </a>
+            <% }) %>
+          <% } else { %>
+            <p class="text-center text-secondary">No posts yet.</p>
+          <% } %>
     </div>
   </div>
 </div>

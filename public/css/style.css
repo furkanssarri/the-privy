@@ -1,0 +1,26 @@
+.hover-scale {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.hover-scale:hover {
+  transform: scale(1.01);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+/* 🔆 Smooth fade/rotate animation for theme transition */
+html {
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease;
+}
+
+#themeIcon {
+  transition:
+    transform 0.4s ease,
+    opacity 0.3s ease;
+}
+
+#themeIcon.rotate {
+  transform: rotate(180deg);
+  opacity: 0.7;
+}
