@@ -44,10 +44,10 @@
         <!-- Auth Links -->
         <% if (user) { %>
           <span class="text-secondary small">Hi, <%= user.username %></span>
-          <a href="/logout" class="nav-link d-inline">Logout</a>
+          <a href="/auth/logout" class="nav-link d-inline">Logout</a>
         <% } else { %>
-          <a href="/login" class="nav-link d-inline">Login</a>
-          <a href="/signup" class="nav-link d-inline">Sign Up</a>
+          <a href="/auth/login" class="nav-link d-inline">Login</a>
+          <a href="/auth/signup" class="nav-link d-inline">Sign Up</a>
         <% } %>
       </div>
     </div>

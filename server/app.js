@@ -1,15 +1,14 @@
 require("dotenv").config();
+const path = require("node:path");
 const express = require("express");
 const session = require("express-session");
 const PgSession = require("connect-pg-simple")(session);
 const passport = require("passport");
-const crypto = require("crypto");
 const pool = require("./db/pool.js");
 const expressLayouts = require("express-ejs-layouts");
 
 const indexRouter = require("./routers/indexRouter.js");
-const signupRouter = require("./routers/signup.js");
-const path = require("node:path");
+const authRouter = require("./routers/authRouter.js");
 
 const app = express();
 
@@ -46,8 +45,19 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use("/auth", authRouter);
+
+// app.get("/:postId", async (req, res, next) => {
+//   console.log(req.params.postId);
+//   try {
+//     // const post = await getPostById(postId);
+//     // console.log(post);
+//   } catch (err) {
+//     console.error("Error retrieving post", err);
+//   }
+// });
+
 app.use("/", indexRouter);
-app.use("/signup", signupRouter);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, (err) => {

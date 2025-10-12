@@ -7,7 +7,7 @@ module.exports.getUserById = async (userId) => {
     ]);
     return rows[0];
   } catch (err) {
-    console.error(err);
+    console.error(`Error fetching the user with the id from DB.`, err);
   }
 };
 
@@ -19,7 +19,7 @@ module.exports.getUserByUsername = async (username) => {
     );
     return rows[0];
   } catch (err) {
-    console.error(err);
+    console.error(`Error fetching the user with ${username} from DB.`, err);
   }
 };
 
@@ -30,7 +30,7 @@ module.exports.createNewUser = async ({ username, hash, salt, isAdmin }) => {
       [username, hash, salt, isAdmin],
     );
   } catch (err) {
-    console.error(err);
+    console.error("Error adding the user to the DB", err);
   }
 };
 
@@ -43,7 +43,24 @@ module.exports.getAllPostsWithAuthors = async () => {
     `);
     return rows;
   } catch (err) {
-    console.error("Error fetching posts", err);
+    console.error("Error fetching posts from DB", err);
     throw err;
+  }
+};
+
+module.exports.getPostById = async (postId) => {
+  try {
+    const { rows } = await pool.query(
+      `
+    SELECT posts.*, users.username
+    FROM posts
+    JOIN users ON posts.author_id = users.id
+    WHERE posts.id = $1;
+    `,
+      [postId],
+    );
+    return rows[0];
+  } catch (err) {
+    console.error(`Error fetching post from DB`, err);
   }
 };

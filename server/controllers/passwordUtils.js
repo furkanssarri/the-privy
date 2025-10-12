@@ -12,11 +12,11 @@ const generateHash = (password) => {
   };
 };
 
-const validatePassword = (password, hash, salt) => {
+const validatePassword = (password, { password_hash, salt }) => {
   const verifyHash = crypto
-    .pbkdf2Sync(password, hash, 10000, 64, "sha512")
+    .pbkdf2Sync(password, salt, 10000, 64, "sha512")
     .toString("hex");
-  return hash === verifyHash;
+  return password_hash === verifyHash;
 };
 
 module.exports = {
