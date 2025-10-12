@@ -1,0 +1,27 @@
+
+<main class="container py-5">
+  <% if (post) { %>
+    <div class="card border-0 shadow-sm bg-body-secondary">
+      <div class="card-body">
+        <h2 class="card-title mb-3"><%= post.title || "Untitled Post" %></h2>
+        <p class="card-text fs-5"><%= post.content %></p>
+
+        <hr class="my-4">
+
+        <div class="d-flex justify-content-between align-items-center text-muted small">
+          <span>By <strong>@<%= post.username %></strong></span>
+          <span><%= new Date(post.created_at).toLocaleString() %></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <a href="/" class="btn btn-outline-secondary">← Back to Home</a>
+    </div>
+  <% } else { %>
+    <div class="text-center py-5">
+      <h3 class="text-muted">This post could not be found.</h3>
+      <a href="/" class="btn btn-outline-secondary mt-3">Go back home</a>
+    </div>
+  <% } %>
+</main>
