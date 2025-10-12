@@ -4,7 +4,8 @@
   "description": "a simple \"members-only\" type web app to demonstrate expressjs, postgresql and passportjs authentication",
   "main": "index.js",
   "scripts": {
-    "start": "node --watch server/app.js"
+    "start": "node --watch server/app.js",
+    "init": "node server/db/init.js"
   },
   "repository": {
     "type": "git",
