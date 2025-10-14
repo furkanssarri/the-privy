@@ -45,17 +45,13 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/auth", authRouter);
+app.use((req, res, next) => {
+  res.locals.errors = [];
+  res.locals.formData = {};
+  next();
+});
 
-// app.get("/:postId", async (req, res, next) => {
-//   console.log(req.params.postId);
-//   try {
-//     // const post = await getPostById(postId);
-//     // console.log(post);
-//   } catch (err) {
-//     console.error("Error retrieving post", err);
-//   }
-// });
+app.use("/auth", authRouter);
 
 app.use("/", indexRouter);
 
