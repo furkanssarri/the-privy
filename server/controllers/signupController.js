@@ -6,13 +6,17 @@ const signupGet = (_req, res) => {
   try {
     res.render("pages/signup", {
       title: "Sign Up",
+      errors: [],
+      formData: {},
     });
   } catch (err) {
     console.error("Error getting the signup form", err);
   }
 };
 const signupPost = async (req, res, next) => {
+  console.log("first");
   const errors = validationResult(req);
+  console.log(errors);
 
   const ROLE_CODES = {
     [process.env.ADMIN_PASSCODE]: "admin",
@@ -20,6 +24,7 @@ const signupPost = async (req, res, next) => {
   };
 
   if (!errors.isEmpty()) {
+    console.log(errors);
     return res.status(400).render("pages/signup", {
       title: "Sign up",
       errors: errors.array(),

@@ -27,7 +27,18 @@ const validateSignup = [
     .withMessage("Password must contain at least one special character.")
     .escape(),
 
-  body("adminPasscode").optional({ checkFalsy: true }).trim().escape(),
+  body("confirmPassword")
+    .notEmpty()
+    .withMessage("Please confirm your password.")
+    .bail()
+    .custom((value, { req }) => {
+      if (value !== req.body.password) {
+        throw new Error("Passwords do not match.");
+      }
+      return true;
+    }),
+
+  body("accessCode").optional({ checkFalsy: true }).trim().escape(),
 ];
 
 module.exports = validateSignup;
