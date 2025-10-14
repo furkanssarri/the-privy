@@ -1,8 +1,7 @@
 const { Router } = require("express");
-const {
-  getAllPostsWithAuthors,
-  getPostById,
-} = require("../controllers/queries");
+const { isAuth, isAdmin } = require("../controllers/authMiddleware.js");
+const { fetchAllPostsWithAuthors } = require("../controllers/queries");
+const { updatePost } = require("../controllers/postsController.js");
 
 const indexRouter = Router();
 
@@ -15,23 +14,6 @@ indexRouter.get("/", async (_req, res, next) => {
     });
   } catch (err) {
     next(err);
-  }
-});
-
-indexRouter.get("/:postId", async (req, res, next) => {
-  const { postId } = req.params;
-  try {
-    const post = await fethPostById(postId);
-    if (!post)
-      return res.status(404).render("pages/404", {
-        title: "Post Not Found",
-      });
-    res.render("pages/post", {
-      title: post.title,
-      post: post,
-    });
-  } catch (err) {
-    console.error("Error retrieving post", err);
   }
 });
 

@@ -13,14 +13,17 @@ authRouter.post(
   "/login",
   passport.authenticate("local", {
     failureRedirect: "/auth/login",
+    failureFlash: true,
     successRedirect: "/",
   }),
 );
 
-authRouter.get("/login", (_req, res) => {
+authRouter.get("/login", (req, res) => {
   try {
+    const errorMessage = req.flash("error");
     res.render("pages/login", {
       title: "Login",
+      errorMessage,
     });
   } catch (err) {
     console.error("Error getting the Login form", err);

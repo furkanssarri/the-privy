@@ -1,22 +1,40 @@
-
 <main class="container py-5">
   <% if (post) { %>
     <div class="card border-0 shadow-sm bg-body-secondary">
       <div class="card-body">
-        <h2 class="card-title mb-3"><%= post.title || "Untitled Post" %></h2>
         <p class="card-text fs-5"><%= post.content %></p>
 
         <hr class="my-4">
 
         <div class="d-flex justify-content-between align-items-center text-muted small">
-          <span>By <strong>@<%= post.username %></strong></span>
-          <span><%= new Date(post.created_at).toLocaleString() %></span>
+          <span>
+            By 
+            <% if (user && (user.role === 'member' || user.role === 'admin')) { %>
+              <strong>@<%= post.username %></strong>
+            <% } else { %>
+              <strong>Anonymous</strong>
+            <% } %>
+          </span>
+
+          <span class="text-muted small">
+            <%= new Date(post.updated_at || post.created_at).toLocaleString() %>
+          </span>
         </div>
       </div>
     </div>
 
-    <div class="mt-4">
+    <!-- Action buttons -->
+    <div class="mt-4 d-flex justify-content-between">
       <a href="/" class="btn btn-outline-secondary">← Back to Home</a>
+
+      <div>
+        <a href="/posts/<%= post.id %>/edit" class="btn btn-primary me-2">Edit</a>
+        <form action="/posts/<%= post.id %>?_method=DELETE" method="POST" class="d-inline">
+          <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this post?')">
+            Delete
+          </button>
+        </form>
+      </div>
     </div>
   <% } else { %>
     <div class="text-center py-5">

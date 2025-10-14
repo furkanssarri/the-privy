@@ -2,7 +2,7 @@
   <div class="row justify-content-center">
     <div class="col-md-8 col-lg-6">
 
-      <% if (typeof user !=="undefined" && user) { %>
+      <% if (typeof user !=="undefined" && user && user.role !== "guest") { %>
         <div class="card mb-4 border-0 shadow-sm">
           <div class="card-body">
             <h5 class="card-title mb-3 text-primary fw-semibold">Create a Post</h5>
@@ -28,15 +28,18 @@
 
           <% if (Array.isArray(posts) && posts.length > 0) { %>
             <% posts.forEach(post => { %>
-              <a href="/<%= post.id %>" class="text-decoration-none ">
+              <a href="/posts/<%= post.id %>" class="text-decoration-none ">
                 <div class="card mb-3 border-0 shadow hover-scale bg-body-secondary">
                   <div class="card-body">
-                    <% if (typeof user !== "undefined" && user) { %>
+                    <% if (typeof user !== "undefined" && user && user.role !== "guest") { %>
                       <h6 class="fw-semibold text-primary mb-1">@<%= post.username %></h6>
                     <% } else { %>
                       <h6 class="fw-semibold text-secondary mb-1">Anonymous</h6>
                     <% } %>
                     <p class="mb-0"><%= post.content %></p>
+                    <span class="text-muted small">
+                      <%= new Date(post.updated_at || post.created_at).toLocaleString() %>
+                    </span>
                   </div>
                 </div>
               </a>

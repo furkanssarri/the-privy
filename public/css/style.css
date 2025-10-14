@@ -24,3 +24,17 @@ html {
   transform: rotate(180deg);
   opacity: 0.7;
 }
+
+/* Footer GitHub link tweaks */
+.footer-github-link {
+  margin-left: 0.5rem; /* small margin from other footer items */
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease; /* smooth hover effect */
+}
+
+.footer-github-link:hover {
+  color: #0d6efd; /* Bootstrap primary color on hover */
+  transform: translateY(-2px); /* subtle lift effect */
+  text-decoration: underline !important; /* optional, improves clickability */
+}

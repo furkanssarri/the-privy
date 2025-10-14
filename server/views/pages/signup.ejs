@@ -19,6 +19,7 @@
                 minlength="3"
                 maxlength="30"
                 pattern="^[a-zA-Z0-9_]+$"
+                placeholder="Enter username"
                 required
               />
               <% errors?.filter(e => e.param === 'username').forEach(e => { %>
@@ -38,6 +39,7 @@
                 id="password"
                 name="password"
                 minlength="8"
+                placeholder="Enter password"
                 required
               />
               <% errors?.filter(e => e.param === 'password').forEach(e => { %>
@@ -45,6 +47,25 @@
               <% }) %>
               <div class="invalid-feedback">
                 Password must be at least 8 characters, including uppercase, lowercase, number, and special character.
+              </div>
+            </div>
+
+
+            <!-- Secret Passcode -->
+            <div class="mb-3">
+              <label for="accessCode" class="form-label">Access (optional)</label>
+              <input
+                type="password"
+                class="form-control <%= errors?.find(e => e.param === 'accessCode') ? 'is-invalid' : '' %>"
+                id="accessCode"
+                name="accessCode"
+                placeholder="Enter secret passcode"
+              />
+              <% errors?.filter(e => e.param === 'accessCode').forEach(e => { %>
+                <div class="invalid-feedback"><%= e.msg %></div>
+              <% }) %>
+              <div class="invalid-feedback">
+                Passcode is too long.
               </div>
             </div>
 

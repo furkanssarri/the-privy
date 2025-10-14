@@ -18,7 +18,11 @@
           </div>
 
           <button type="submit" class="btn btn-primary w-100 fw-semibold mb-3">Log In</button>
-
+          <% if (errorMessage.length > 0) { %>
+            <div class="alert alert-danger">
+              <%= errorMessage[0] %>
+            </div>
+          <% } %>
           <p class="text-center text-secondary mb-0">
             Don’t have an account?
             <a href="/auth/signup" class="link-primary">Sign up</a>
