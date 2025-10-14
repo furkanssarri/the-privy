@@ -32,8 +32,8 @@
 
 ## Demo
 
-A live demo will be available soon.  
-**[Demo Placeholder](https://your-demo-link.com)**
+Here is a live demo of the project on Render PaaS:  
+**[Demo Placeholder](https://the-privy.onrender.com/)**
 
 ---
 
