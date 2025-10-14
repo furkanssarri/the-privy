@@ -8,7 +8,7 @@ const indexRouter = Router();
 
 indexRouter.get("/", async (_req, res, next) => {
   try {
-    const posts = await getAllPostsWithAuthors();
+    const posts = await fetchAllPostsWithAuthors();
     res.render("pages/index", {
       title: "Home",
       posts: posts,
@@ -21,7 +21,7 @@ indexRouter.get("/", async (_req, res, next) => {
 indexRouter.get("/:postId", async (req, res, next) => {
   const { postId } = req.params;
   try {
-    const post = await getPostById(postId);
+    const post = await fethPostById(postId);
     if (!post)
       return res.status(404).render("pages/404", {
         title: "Post Not Found",

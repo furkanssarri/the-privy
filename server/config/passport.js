@@ -5,7 +5,7 @@ const { validatePassword } = require("../controllers/passwordUtils.js");
 
 const verifyCallback = async (username, password, done) => {
   try {
-    const user = await getUserByUsername(username);
+    const user = await fetchUserByUsername(username);
     if (!user) return done(null, false);
 
     const isValidPw = validatePassword(password, user);
@@ -26,7 +26,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (userId, done) => {
-  getUserById(userId, done)
+  fetchUserById(userId, done)
     .then((user) => {
       done(null, user);
     })

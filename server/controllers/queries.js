@@ -1,6 +1,6 @@
 const pool = require("../db/pool.js");
 
-module.exports.getUserById = async (userId) => {
+module.exports.fetchUserById = async (userId) => {
   try {
     const { rows } = await pool.query("SELECT * FROM users WHERE id = $1", [
       userId,
@@ -11,7 +11,7 @@ module.exports.getUserById = async (userId) => {
   }
 };
 
-module.exports.getUserByUsername = async (username) => {
+module.exports.fetchUserByUsername = async (username) => {
   try {
     const { rows } = await pool.query(
       "SELECT * FROM users WHERE username = $1",
@@ -23,7 +23,7 @@ module.exports.getUserByUsername = async (username) => {
   }
 };
 
-module.exports.createNewUser = async ({ username, hash, salt, isAdmin }) => {
+module.exports.addUserToDb = async ({ username, hash, salt, isAdmin }) => {
   try {
     await pool.query(
       "INSERT INTO users (username, password_hash, salt, is_admin) VALUES ($1, $2, $3, $4)",
@@ -34,7 +34,7 @@ module.exports.createNewUser = async ({ username, hash, salt, isAdmin }) => {
   }
 };
 
-module.exports.getAllPostsWithAuthors = async () => {
+module.exports.fetchAllPostsWithAuthors = async () => {
   try {
     const { rows } = await pool.query(`
       SELECT posts.*, users.username
@@ -48,7 +48,7 @@ module.exports.getAllPostsWithAuthors = async () => {
   }
 };
 
-module.exports.getPostById = async (postId) => {
+module.exports.fetchPostById = async (postId) => {
   try {
     const { rows } = await pool.query(
       `
@@ -62,5 +62,17 @@ module.exports.getPostById = async (postId) => {
     return rows[0];
   } catch (err) {
     console.error(`Error fetching post from DB`, err);
+  }
+};
+
+module.exports.addPostToDb = async ({ content, authorId }) => {
+  try {
+    const { rows } = await pool.query(
+      "INSERT INTO posts (content, author_id) VALUES ($1, $2)",
+      [content, authorId],
+    );
+    return rows[0];
+  } catch (err) {
+    console.error("Error adding the new post to the DB.", err);
   }
 };

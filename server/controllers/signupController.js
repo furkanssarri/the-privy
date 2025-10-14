@@ -1,5 +1,5 @@
 const { generateHash } = require("./passwordUtils.js");
-const { createNewUser } = require("./queries.js");
+const { addUserToDb } = require("./queries.js");
 const { validationResult } = require("express-validator");
 
 const signupGet = (_req, res) => {
@@ -28,7 +28,7 @@ const signupPost = async (req, res, next) => {
       salt: salt,
       isAdmin: false,
     };
-    await createNewUser(newUser);
+    await addUserToDb(newUser);
 
     res.redirect("/");
   } catch (err) {

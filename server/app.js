@@ -45,7 +45,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use((req, res, next) => {
+app.use((_req, res, next) => {
   res.locals.errors = [];
   res.locals.formData = {};
   next();
