@@ -14,7 +14,7 @@
 
 ## About
 
-**the-privy** is a simple "members-only" web application built to demonstrate user authentication using Express.js, Passport.js, and PostgreSQL. Developed in conjunction with [The Odin Project](https://www.theodinproject.com/) Node.js curriculum, this project showcases practical usage of modern web development tools and libraries for secure user management.
+**the-privy** is a "members-only" web application built to demonstrate user authentication and authorization using Express.js, Passport.js, and PostgreSQL. Developed in conjunction with [The Odin Project](https://www.theodinproject.com/) Node.js curriculum, this project showcases practical usage of modern web development tools and libraries for secure user management.
 
 ---
 
@@ -23,10 +23,10 @@
 - **Backend Framework:** Express.js
 - **Authentication:** Passport.js
 - **Database:** PostgreSQL
-- **ORM/Database Driver:** pg
+- **Database Driver:** pg
 - **Session Store:** connect-pg-simple
 - **Templating Engine:** EJS (with express-ejs-layouts)
-- **Other Packages:** node:crypto, dotenv, etc.
+- **Other Packages:** node:crypto, dotenv, connect-flash, express-session, express-validator, method-override
 
 ---
 
@@ -61,14 +61,15 @@ A live demo will be available soon.
    ```
 
 3. **Set up environment variables:**
-
-   - Create a `.env` and fill in your PostgreSQL credentials and session secrets.
+   - Create a `.env` and fill in your PostgreSQL credentials, session secret, and any passcodes.
 
 4. **Initialize the database:**
+   - Run the SQL scripts in `server/db/schema.sql` and `server/db/seed.sql` to set up tables and seed data.
+   - Alternatively, use the provided script:
 
-   ```bash
-   npm run init
-   ```
+     ```bash
+     node server/db/init.js
+     ```
 
 5. **Start the application:**
 
@@ -87,28 +88,37 @@ the-privy/
 ├── public/
 │   └── css/
 │       └── style.css
-└── server/
-    ├── app.js
-    ├── config/
-    │   └── passport.js
-    ├── controllers/
-    │   ├── passwordUtils.js
-    │   └── queries.js
-    ├── db/
-    │   ├── init.js
-    │   ├── pool.js
-    │   ├── schema.sql
-    │   └── seed.sql
-    ├── routers/
-    │   ├── authRouter.js
-    │   └── indexRouter.js
-    └── views/
-        ├── layout.ejs
-        └── pages/
-            ├── index.ejs
-            ├── login.ejs
-            ├── post.ejs
-            └── signup.ejs
+├── server/
+│   ├── app.js
+│   ├── config/
+│   │   └── passport.js
+│   ├── controllers/
+│   │   ├── authMiddleware.js
+│   │   ├── passwordUtils.js
+│   │   ├── postsController.js
+│   │   ├── queries.js
+│   │   └── signupController.js
+│   ├── db/
+│   │   ├── init.js
+│   │   ├── pool.js
+│   │   ├── schema.sql
+│   │   └── seed.sql
+│   ├── routers/
+│   │   ├── authRouter.js
+│   │   ├── indexRouter.js
+│   │   └── postsRouter.js
+│   ├── validators/
+│   │   └── signupValidator.js
+│   └── views/
+│       ├── layout.ejs
+│       └── pages/
+│           ├── 404.ejs
+│           ├── index.ejs
+│           ├── login.ejs
+│           ├── post.ejs
+│           ├── postForm.ejs
+│           ├── signup.ejs
+│           └── unAuthorized.ejs
 ```
 
 ---

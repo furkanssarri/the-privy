@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node --watch server/app.js",
-    "init": "node server/db/init.js && psql the_privy_db < node_modules/connect-pg-simple/table.sql"
+    "init": "node server/db/init.js"
   },
   "repository": {
     "type": "git",
