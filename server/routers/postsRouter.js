@@ -12,7 +12,7 @@ const {
   createNewPost,
 } = require("../controllers/postsController.js");
 
-postsRouter.post("/", isMember, createNewPost);
+postsRouter.post("/", createNewPost);
 
 postsRouter.get("/:postId", async (req, res, next) => {
   const { postId } = req.params;
