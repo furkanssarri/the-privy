@@ -1,4 +1,4 @@
-# the-privy
+# The Privy
 
 ## Table of Contents
 

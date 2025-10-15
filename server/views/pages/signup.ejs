@@ -60,20 +60,31 @@
 
 
             <!-- Secret Passcode -->
-            <div class="mb-3">
-              <label for="accessCode" class="form-label">Access (optional)</label>
-              <input type="password"
-                class="form-control <%= errors?.find(e => e.param === 'accessCode') ? 'is-invalid' : '' %>"
-                id="accessCode" name="accessCode" placeholder="Enter secret passcode" />
-              <% errors?.filter(e=> e.param === 'accessCode').forEach(e => { %>
-                <div class="invalid-feedback">
-                  <%= e.msg %>
-                </div>
-                <% }) %>
-                  <div class="invalid-feedback">
-                    Passcode is too long.
-                  </div>
-            </div>
+<div class="mb-3">
+  <label for="accessCode" class="form-label d-flex align-items-center">
+    Access (optional)
+    <button type="button"
+      class="btn btn-sm btn-link text-secondary p-0 ms-2"
+      data-bs-toggle="tooltip"
+      data-bs-placement="right"
+      title="If you have a member or admin access passcode, enter it here to unlock member privileges. Otherwise, leave this field empty to continue as a guest.">
+      <i class="bi bi-info-circle-fill"></i>
+    </button>
+  </label>
+  
+  <input
+    type="password"
+    class="form-control <%= errors?.find(e => e.param === 'accessCode') ? 'is-invalid' : '' %>"
+    id="accessCode"
+    name="accessCode"
+    placeholder="Enter secret passcode"
+    value="<%= formData?.accessCode || '' %>"
+  />
+  
+  <div class="invalid-feedback">
+    <%= errors?.find(e => e.param === 'accessCode')?.msg || 'Passcode is too long.' %>
+  </div>
+</div>
 
             <button type="submit" class="btn btn-primary w-100">Sign Up</button>
           </form>
@@ -97,4 +108,10 @@
       }, false);
     });
   })();
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    tooltipTriggerList.map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+  });
 </script>

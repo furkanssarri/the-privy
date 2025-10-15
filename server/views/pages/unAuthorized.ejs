@@ -1,8 +1,39 @@
 <main class="container py-5 text-center">
-  <div class="alert alert-danger shadow-sm">
-    <h3 class="mb-3">Access Denied</h3>
-    <p class="lead"><%= message || "You do not have permission to view this page." %></p>
-  </div>
 
-  <a href="/" class="btn btn-outline-secondary mt-3">← Go back home</a>
+  <!-- Hero section -->
+  <section class="mb-5">
+    <h1 class="fw-bold text-primary mb-3">You are not authorized to view this page.</span></h1>
+    <p class="lead text-muted mb-4">
+      Please sign up, or if you already have an account, login to view the full content of this page.
+    </p>
+
+    <div class="d-flex justify-content-center gap-3">
+      <a href="/auth/login" class="btn btn-primary px-4">Log In</a>
+      <a href="/auth/signup" class="btn btn-outline-primary px-4">Sign Up</a>
+    </div>
+  </section>
+
+  <!-- Optional anonymous feed preview -->
+  <% if (posts && posts.length > 0) { %>
+    <section class="text-start mx-auto" style="max-width: 600px;">
+      <h4 class="fw-semibold mb-3 text-secondary text-center">Explore what’s happening:</h4>
+
+      <% posts.slice(0, 3).forEach(post => { %>
+        <div class="card mb-3 border-0 shadow-sm hover-scale">
+          <div class="card-body">
+            <h5 class="card-title"><%= post.title %></h5>
+            <p class="card-text text-muted"><%= post.content.length > 150 ? post.content.slice(0, 150) + '...' : post.content %></p>
+            <small class="text-muted">by Anonymous — <%= new Date(post.created_at).toLocaleDateString() %></small>
+          </div>
+        </div>
+      <% }) %>
+
+      <div class="text-center mt-4">
+        <a href="/auth/login" class="btn btn-sm btn-outline-secondary">View More as Guest, or create your own posts as a Member.</a>
+      </div>
+    </section>
+  <% } else { %>
+    <p class="text-muted mt-5">No public posts to show yet. Log in or sign up to start sharing!</p>
+  <% } %>
+
 </main>
