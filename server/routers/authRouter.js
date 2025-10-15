@@ -23,7 +23,7 @@ authRouter.get("/login", (req, res) => {
   try {
     const errorMessage = req.flash("error");
     res.render("pages/login", {
-      title: "Login",
+      title: "Login | The Privy",
       errorMessage,
     });
   } catch (err) {

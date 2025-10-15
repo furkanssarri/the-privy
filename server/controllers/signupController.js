@@ -26,7 +26,7 @@ const signupPost = async (req, res, next) => {
   if (!errors.isEmpty()) {
     console.log(errors);
     return res.status(400).render("pages/signup", {
-      title: "Sign up",
+      title: "Sign up | The Privy",
       errors: errors.array(),
       formData: req.body,
     });

@@ -20,10 +20,10 @@ postsRouter.get("/:postId", async (req, res, next) => {
     const post = await fetchPostById(postId);
     if (!post)
       return res.status(404).render("pages/404", {
-        title: "Post Not Found",
+        title: "Post Not Found | The Privy",
       });
     res.render("pages/post", {
-      title: `View post`,
+      title: `View post | The Privy`,
       post: post,
     });
   } catch (err) {
@@ -38,7 +38,7 @@ postsRouter.get("/:postId/edit", isAdmin, async (req, res) => {
     if (!post)
       return res.status(404).render("pages/404", { title: "Post not found" });
     res.render("pages/postForm", {
-      title: `Edit post`,
+      title: `Edit post | The Privy`,
       post: post,
     });
   } catch (err) {

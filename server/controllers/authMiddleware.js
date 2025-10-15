@@ -3,7 +3,7 @@ module.exports.isMember = (req, res, next) => {
     next();
   } else {
     return res.status(403).render("pages/unAuthorized", {
-      title: "Access Denied",
+      title: "Access Denied | The Privy",
       message: "This operation requires member priviledges.",
       user: req.user || null,
     });
@@ -15,7 +15,7 @@ module.exports.isAdmin = (req, res, next) => {
     next();
   } else {
     return res.status(403).render("pages/unAuthorized", {
-      title: "Access Denied",
+      title: "Access Denied | The Privy",
       message: "This operation requires admin priviledges.",
       user: req.user || null,
     });

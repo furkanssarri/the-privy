@@ -9,7 +9,7 @@ indexRouter.get("/", async (_req, res, next) => {
   try {
     const posts = await fetchAllPostsWithAuthors();
     res.render("pages/index", {
-      title: "Home",
+      title: "Home | The Privy",
       posts: posts,
     });
   } catch (err) {
