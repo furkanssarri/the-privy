@@ -1,0 +1,32 @@
+<svg
+  width="256" height="256"
+  viewBox="0 0 24 24"
+  role="img"
+  aria-label="The Privy logo"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <title>The Privy</title>
+
+  <!-- Shield outline -->
+  <path
+    d="M12 2l6 3v5c0 4-3 7.5-6 9-3-1.5-6-5-6-9V5l6-3z"
+    fill="#fff"
+    stroke="#0d6efd"
+    stroke-width="1.6"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+
+  <!-- Filled inner shield -->
+  <path
+    d="M12 3.3l4.8 2.4v4.2c0 3.2-2.4 5.9-4.8 7-2.4-1.1-4.8-3.8-4.8-7V5.7L12 3.3z"
+    fill="#fff"
+    opacity="0.08"
+  />
+
+  <!-- Keyhole -->
+  <g transform="scale(1.4) translate(-3.5, -2.8)">
+    <circle cx="12" cy="9.3" r="1.05" fill="#0d6efd" />
+    <rect x="11.15" y="10.4" width="1.7" height="3.2" rx="0.8" fill="#0d6efd" />
+  </g>
+</svg>
