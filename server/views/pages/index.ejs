@@ -1,94 +1,158 @@
+
 <main class="container py-5">
 
-  <% if (!user || user.role === 'guest') { %>
-    <!-- 🏠 Landing Section -->
+  <% if (!user) { %>
+    <!-- Landing Section -->
     <section class="text-center mb-5">
-      <h1 class="fw-bold text-primary mb-3">Welcome to <span class="text-dark">The Privy</span></h1>
-      <p class="lead text-muted mb-4">
-        A place to share your thoughts, explore others’, and connect with people around the world.
-      </p>
-      <div class="d-flex justify-content-center gap-3 mb-5">
-        <a href="/auth/login" class="btn btn-primary px-4">Log In</a>
-        <a href="/auth/signup" class="btn btn-outline-primary px-4">Sign Up</a>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <h1 class="display-4 fw-bold">Welcome to The Privy</h1>
+          <p class="lead text-muted">
+            Discover posts, stay informed, and share your thoughts with our community.
+          </p>
+          <!-- CTA Buttons -->
+          <div class="mt-4 d-flex justify-content-center gap-3">
+            <a href="/auth/login" class="btn btn-primary btn-lg px-4">Login</a>
+            <a href="/auth/signup" class="btn btn-outline-primary btn-lg px-4">Sign Up</a>
+          </div>
+        </div>
       </div>
     </section>
 
-<!-- 👥 Roles and Privileges -->
-<section class="mb-5 text-center">
-  <h4 class="fw-semibold mb-3">Roles & Privileges</h4>
-  <div class="row justify-content-center">
-    <div class="col-md-5">
-      <div class="card border-0 shadow-sm h-100">
-        <div class="card-body">
-          <h5 class="card-title text-primary fw-bold">Guest</h5>
-          <p class="text-muted mb-0">
-            Can browse a limited selection of public posts anonymously in read-only mode.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-5 mt-3 mt-md-0">
-      <div class="card border-0 shadow-sm h-100">
-        <div class="card-body">
-          <h5 class="card-title text-success fw-bold">Member</h5>
-          <p class="text-muted mb-0">
-            Can view full post content with author details, and create, edit, or delete their own posts.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-    <!-- 📰 Anonymous Feed Preview -->
-    <section class="mx-auto" style="max-width: 700px;">
-      <h4 class="fw-semibold mb-3 text-secondary text-center">Recent Public Posts</h4>
-
-      <% if (posts && posts.length > 0) { %>
-        <% posts.slice(0, 5).forEach(post => { %>
-          <div class="card mb-3 border-0 shadow-sm bg-body-secondary">
+    <!-- Roles & Privileges Cards -->
+    <section class="mb-5">
+      <div class="row justify-content-center g-4">
+        <div class="col-md-5">
+          <div class="card border-primary shadow-sm h-100 text-center">
+            <div class="card-header bg-primary text-white fw-bold">Guest</div>
             <div class="card-body">
-              <h5 class="card-title"><%= post.title %></h5>
-              <p class="card-text text-muted mb-1">
-                <%= post.content.length > 150 ? post.content.slice(0, 150) + '...' : post.content %>
+              <p class="card-text text-muted">
+                Browse a limited selection of posts anonymously. Authors' identities are hidden.
               </p>
-              <small class="text-muted">by Anonymous — <%= new Date(post.created_at).toLocaleDateString() %></small>
+              <p class="fw-semibold text-primary">Read-only access</p>
             </div>
           </div>
-        <% }) %>
-        <div class="text-center mt-3">
-          <a href="/auth/login" class="btn btn-outline-secondary btn-sm">Log in to see more</a>
         </div>
-      <% } else { %>
-        <p class="text-muted text-center">No posts yet. Be the first to sign up and share your thoughts!</p>
-      <% } %>
+        <div class="col-md-5">
+          <div class="card border-success shadow-sm h-100 text-center">
+            <div class="card-header bg-success text-white fw-bold">Member</div>
+            <div class="card-body">
+              <p class="card-text text-muted">
+                Create posts, interact with others, and see authors’ identities.
+              </p>
+              <p class="fw-semibold text-success">Full access</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-  <% } else { %>
-    <!-- 🧾 Authenticated Feed -->
-    <section class="mx-auto" style="max-width: 700px;">
-      <h3 class="fw-semibold mb-4">Welcome back, <span class="text-primary"><%= user.username %></span>!</h3>
+    <!-- Public posts for guests/unregistered -->
+    <section>
+      <h4 class="fw-semibold mb-3 text-center">Recent Public Posts</h4>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <% let count = 0; %>
+          <% posts.forEach(post => { %>
+            <% if (post && count < 5) { %>
+              <div class="card mb-3 shadow-sm">
+                <div class="card-body">
+                  <p class="mb-1"><strong><%= post.authorName || 'Anonymous' %>:</strong></p>
+                  <p class="mb-0"><%= post.content %></p>
+                </div>
+              </div>
+              <% count++; %>
+            <% } %>
+          <% }) %>
+        </div>
+      </div>
+    </section>
 
-      <% if (posts && posts.length > 0) { %>
-        <% posts.forEach(post => { %>
-          <div class="card mb-3 border-0 shadow-sm">
+  <% } else if (user.role === 'guest') { %>
+    <!-- Guest Info Section -->
+    <section class="text-center mb-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card shadow-sm h-100">
             <div class="card-body">
-              <h5 class="card-title">
-                <a href="/posts/<%= post.id %>" class="text-decoration-none text-dark"><%= post.title %></a>
-              </h5>
-              <p class="card-text"><%= post.content.length > 200 ? post.content.slice(0, 200) + '...' : post.content %></p>
-              <div class="d-flex justify-content-between align-items-center">
-                <small class="text-muted">
-                  by @<%= post.username %> — <%= new Date(post.updated_at || post.created_at).toLocaleString() %>
-                </small>
-                <a href="/posts/<%= post.id %>" class="btn btn-sm btn-outline-primary">View</a>
+              <h5 class="card-title fw-bold text-primary">Guest Access</h5>
+              <p class="text-muted mb-2">
+                You can only view posts anonymously. Authors' names are hidden.
+              </p>
+              <p class="text-muted mb-0">
+                Sign up as a <strong>Member</strong> to view authors and create posts.
+              </p>
+              <div class="mt-3">
+                <a href="/auth/signup" class="btn btn-outline-primary">Sign Up</a>
               </div>
             </div>
           </div>
-        <% }) %>
-      <% } else { %>
-        <p class="text-muted text-center">No posts yet. Create your first one!</p>
-      <% } %>
+        </div>
+      </div>
+    </section>
+
+    <!-- Limited public posts -->
+    <section>
+      <h4 class="fw-semibold mb-3 text-center">Recent Public Posts</h4>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <% let count = 0; %>
+          <% posts.forEach(post => { %>
+            <% if (post && count < 5) { %>
+              <div class="card mb-3 shadow-sm">
+                <div class="card-body">
+                  <p class="mb-1"><strong>Anonymous:</strong></p>
+                  <p class="mb-0"><%= post.content %></p>
+                </div>
+              </div>
+              <% count++; %>
+            <% } %>
+          <% }) %>
+        </div>
+      </div>
+    </section>
+
+  <% } else if (user.role === 'member' || user.role === 'admin') { %>
+    <!-- Sleek New Post Section -->
+    <section class="row mb-4 justify-content-center">
+<div class="card mb-4 border-0 col-md-8 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title mb-3 text-primary fw-semibold">Create a Post</h5>
+            <form action="/posts" method="POST">
+              <div class="mb-3">
+                <textarea name="content" class="form-control" rows="3" placeholder="What's happening?"
+                  required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary w-100 fw-semibold">Post</button>
+            </form>
+          </div>
+        </div>
+    </section>
+
+    <!-- All posts feed -->
+    <section>
+      <h4 class="fw-semibold mb-3 text-center">All Posts</h4>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <% posts.forEach(post => { %>
+            <div class="card mb-3 shadow-sm">
+              <div class="card-body">
+                <p class="mb-1">
+                  <strong>
+                    <% if (typeof user !== "undefined" && user && user.role !== "guest") { %>
+                      <h6 class="fw-semibold text-primary mb-1">@<%= post.username %></h6>
+                    <% } else { %>
+                      <h6 class="fw-semibold text-secondary mb-1">Anonymous</h6>
+                    <% } %>
+                  </strong>
+                </p>
+                <p class="mb-2"><%= post.content %></p>
+                <a href="/posts/<%= post.id %>" class="text-decoration-none text-muted">View Post →</a>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      </div>
     </section>
   <% } %>
 

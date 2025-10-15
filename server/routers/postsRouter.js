@@ -1,6 +1,10 @@
 const { Router } = require("express");
 const postsRouter = Router();
-const { isAdmin, isMember } = require("../controllers/authMiddleware.js");
+const {
+  isAdmin,
+  isMember,
+  canAlterPost,
+} = require("../controllers/authMiddleware.js");
 const {
   addPostToDb,
   deletePostFromDb,
@@ -31,7 +35,7 @@ postsRouter.get("/:postId", async (req, res, next) => {
   }
 });
 
-postsRouter.get("/:postId/edit", isAdmin, async (req, res) => {
+postsRouter.get("/:postId/edit", canAlterPost, async (req, res) => {
   const { postId } = req.params;
   try {
     const post = await fetchPostById(postId);
@@ -45,8 +49,8 @@ postsRouter.get("/:postId/edit", isAdmin, async (req, res) => {
     console.error("Error rendering the post form", err);
   }
 });
-postsRouter.post("/:postId/edit", isAdmin, updatePost);
+postsRouter.post("/:postId/edit", canAlterPost, updatePost);
 
-postsRouter.delete("/:postId", isAdmin, deletePost);
+postsRouter.delete("/:postId", canAlterPost, deletePost);
 
 module.exports = postsRouter;
