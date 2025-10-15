@@ -14,7 +14,7 @@
 
 ## About
 
-**the-privy** is a "members-only" web application built to demonstrate user authentication and authorization using Express.js, Passport.js, and PostgreSQL. Developed in conjunction with [The Odin Project](https://www.theodinproject.com/) Node.js curriculum, this project showcases practical usage of modern web development tools and libraries for secure user management.
+**The Privy** is a "members-only" web application built to demonstrate user authentication and authorization using Express.js, Passport.js, and PostgreSQL. Developed in conjunction with [The Odin Project](https://www.theodinproject.com/) Node.js curriculum, this project showcases practical usage of modern web development tools and libraries for secure user management.
 
 ---
 
@@ -33,7 +33,7 @@
 ## Demo
 
 Here is a live demo of the project on Render PaaS:  
-**[Demo Placeholder](https://the-privy.onrender.com/)**
+**[Demo](https://the-privy.onrender.com/)**
 
 ---
 
